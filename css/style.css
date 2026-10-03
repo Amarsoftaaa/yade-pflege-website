@@ -1,0 +1,229 @@
+/* ==========================================================================
+   YADE AMBULANTE PFLEGE & BETREUUNG - PREMIUM CUSTOM CSS
+   München-Neuperlach
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Google Fonts & Root Custom Variables
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&display=swap');
+
+:root {
+  --color-yade-dark: #1B3B2C;
+  --color-yade-forest: #244B39;
+  --color-yade-emerald: #0F684B;
+  --color-yade-emerald-hover: #0B523B;
+  --color-yade-emerald-light: #E8F5F1;
+  --color-yade-gold: #C5A059;
+  --color-yade-gold-dark: #A4813D;
+  --color-yade-gold-light: #FAF4E8;
+  --color-yade-beige: #F4EFE6;
+  --color-yade-cream: #FAF8F5;
+  --color-text-main: #2C3531;
+  --color-text-muted: #5C6560;
+
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-handwriting: 'Caveat', cursive;
+
+  --shadow-subtle: 0 4px 20px -2px rgba(27, 59, 44, 0.05);
+  --shadow-card: 0 10px 30px -5px rgba(27, 59, 44, 0.08), 0 4px 12px -2px rgba(197, 160, 89, 0.05);
+  --shadow-hover: 0 20px 40px -10px rgba(15, 104, 75, 0.15), 0 10px 20px -5px rgba(197, 160, 89, 0.1);
+  --shadow-gold-glow: 0 0 25px rgba(197, 160, 89, 0.25);
+
+  --radius-lg: 1rem;     /* 16px */
+  --radius-xl: 1.5rem;   /* 24px */
+  --radius-2xl: 2rem;    /* 32px */
+}
+
+/* --------------------------------------------------------------------------
+   2. Base & Typography Overrides
+   -------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--color-yade-cream);
+  color: var(--color-text-main);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .font-serif-title {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+}
+
+.font-handwriting {
+  font-family: var(--font-handwriting);
+}
+
+/* Custom Selection Highlight */
+::selection {
+  background-color: var(--color-yade-emerald);
+  color: #FFFFFF;
+}
+
+/* Accessibility Focus States */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--color-yade-gold);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Glassmorphism & Header Components
+   -------------------------------------------------------------------------- */
+.glass-nav {
+  background: rgba(250, 248, 245, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.18);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(197, 160, 89, 0.15);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #E5C158 0%, #C5A059 50%, #9A7B38 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border-glow {
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   4. Micro-Interactions & Hover Lift
+   -------------------------------------------------------------------------- */
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(197, 160, 89, 0.4);
+}
+
+/* Floating animation */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+/* Pulse Glow */
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(197, 160, 89, 0); }
+}
+
+.pulse-gold {
+  animation: pulseGold 2.5s infinite;
+}
+
+/* --------------------------------------------------------------------------
+   5. Custom Scroll reveal states (IntersectionObserver)
+   -------------------------------------------------------------------------- */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-element.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* --------------------------------------------------------------------------
+   6. Accordion Custom Styles
+   -------------------------------------------------------------------------- */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  opacity: 0;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.accordion-item.active .accordion-icon {
+  transform: rotate(180deg);
+  background-color: var(--color-yade-emerald);
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   7. Modal Backdrop & Dialog
+   -------------------------------------------------------------------------- */
+.modal-backdrop {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  transform: scale(0.92) translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.is-open .modal-box {
+  transform: scale(1) translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   8. Organic Curved Section Dividers
+   -------------------------------------------------------------------------- */
+.curved-top-divider {
+  position: relative;
+}
+.curved-top-divider::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-size: 100% 40px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-yade-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: #C2B8A3;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-yade-emerald);
+}
